@@ -6,10 +6,6 @@
 # Github : https://github.com/FujiClado
 
 
-package_list="httpd  mysql-server  php-* " 
-service_list="httpd mysqld"
-mysqlroot_pass="mysql123"
-
 
 #COLOR CODE TO USE WITH THE ECHO 
 RESET="\e[0m"
@@ -21,9 +17,12 @@ GREENBLACK='\e[1;42m'
 
 
 
+package_list="httpd  mysql-server  php-* " 
+service_list="httpd mysqld"
+
+
 # PCKAGE INSTALLATION - START
 clear
-
 for package in ${package_list}
 do 
 
