@@ -15,7 +15,7 @@ Step2:
 
 cd /lampinstaller
 
-./lampinstaller.sh
+./install.sh
 
 Give proper mysql password
 
