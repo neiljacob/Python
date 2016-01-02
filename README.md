@@ -1,13 +1,19 @@
-lamp-auto-installer-bash-script
-===============================
+Lamp Installer in Bash
+======================
+
+Operating System : Centos-6.x
 
 bash script to auto install LAMP stack
 
 Step1:
 
-unzip the file
+
+unzip lampinstaller.zip
 
 Step2:
+
+
+cd /lampinstaller
 
 ./lampinstaller.sh
 
