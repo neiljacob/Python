@@ -1,0 +1,12 @@
+# To find number of in,it,is in a file
+
+string = 'The Joker is a fictional supervillain created by Bill Finger, Bob Kane, and Jerry Robinson who first appeared in the debut issue of the comic book Batman (April 25, 1940), published by DC Comics. Credit for the Joker It is it is it is in '
+
+counter = 0
+
+for i in string.lower().split():
+
+    if i == 'in' or i == 'is' or i == 'it':
+        counter += 1
+        
+print(counter)
