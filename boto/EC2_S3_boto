@@ -1,0 +1,192 @@
+import boto3
+
+ec2 = boto3.resource('ec2') 
+filter = [{'Name':'tag:os','Values':['linux'] }]                                                             
+for instance in ec2.instances.filter(Filters=filter):
+    print(instance.id,instance.state,instance.tags,instance.image)
+
+
+
+
+======================================================================
+
+
+import boto3
+
+ec2 = boto3.resource('ec2') 
+
+filter = [{'Name':'tag:os','Values':['linux'] }]     
+                                                         
+for instance in ec2.instances.filter(Filters=filter):
+    	print('Stoping Instance :',instance.id)
+	instance.stop()
+
+
+=====================================================================
+
+
+import boto3
+ 
+ec2 = boto3.resource('ec2') 
+
+filter = [{'Name':'tag:os','Values':['linux'] }] 
+    
+for instance in ec2.instances.filter(Filters=filter):
+	volumes = instance.volumes.all()
+	print([ volume.id for volume in volumes])
+
+=====================================================================
+
+
+
+import boto3
+
+ec2 = boto3.resource('ec2')
+snapshot = ec2.Snapshot('snap-01ac1d495755c1600')
+snapshot.copy(SourceRegion='ap-south-1',DestinationRegion='us-east-1')
+
+
+========================================================================
+
+
+
+
+
+
+
+
+
+
+ec2 = boto3.resource('ec2') 
+snapshot = ec2.create_snapshot( Description='testing snapshot', VolumeId='vol-09a0c635ae507e175')
+snapshot.create_tags(Tags=[{'Key':'Name','Value':'simple3'}])
+
+
+======================================================================
+
+
+import boto3
+import datetime
+
+
+ec2 = boto3.resource('ec2') 
+
+filter = [{'Name':'tag:os','Values':['linux'] }] 
+for instance in ec2.instances.filter(Filters=filter):
+volumes = instance.volumes.all()
+for volume in volumes:
+	time_tag =  datetime.datetime.now().strftime("%m-%d-%Y-%H-%M-%S")
+	snapshot = ec2.create_snapshot( Description='testing snapshot', VolumeId=volume.id)
+	snapshot.create_tags(Tags=[{'Key':'Name','Value':time_tag}])
+
+
+6 ================================================================================
+
+
+ image = ec2.register_image(
+      ImageLocation='string',
+      Architecture='i386'|'x86_64',
+      BlockDeviceMappings=[
+          {
+              'DeviceName': 'string',
+              'VirtualName': 'string',
+              'Ebs': {
+                  'Encrypted': True|False,
+                  'DeleteOnTermination': True|False,
+                  'Iops': 123,
+                  'SnapshotId': 'string',
+                  'VolumeSize': 123,
+                  'VolumeType': 'standard'|'io1'|'gp2'|'sc1'|'st1'
+              },
+              'NoDevice': 'string'
+          },
+      ],
+      Description='string',
+      DryRun=True|False,
+      EnaSupport=True|False,
+      KernelId='string',
+      Name='string',
+      BillingProducts=[
+          'string',
+      ],
+      RamdiskId='string',
+      RootDeviceName='string',
+      SriovNetSupport='string',
+      VirtualizationType='string'
+  )
+
+
+BlockDeviceMapping = [
+{
+    'DeviceName': '/dev/sda',
+     'Ebs': {
+          'SnapshotId': 'snap-00c589ef309b0e288',
+	  'DeleteOnTermination': True,
+	  'VolumeType': 'standard'
+      }
+   }
+]
+r_image = ec2.register_image(Name="neil-ami",Architecture='x86_64',Description="neil_testing_ami",RootDeviceName='/dev/sda',BlockDeviceMappings=BlockDeviceMapping)
+
+r_image.deregister()
+ r_image.state
+========================================================================================
+
+
+BlockDeviceMapping = [
+{
+    'DeviceName': '/dev/sda',
+     'Ebs': {
+          'SnapshotId': 'snap-00c589ef309b0e288',
+	  'DeleteOnTermination': True,
+	  'VolumeType': 'standard'
+      }
+   }
+]
+r_image = ec2.register_image(Name="neil-ami",Architecture='x86_64',Description="neil_testing_ami",RootDeviceName='/dev/sda',BlockDeviceMappings=BlockDeviceMapping)
+
+while True:
+  if r_image.state == 'available':
+	print('ready')
+   	break
+  else:
+	time.sleep(5)
+    
+
+========================================================================================
+
+NetworkInterfaces = [{'AssociatePublicIpAddress':True,'DeviceIndex':0}]
+
+inst = ec2.create_instances(ImageId='ami-6057e21a',MaxCount=1,MinCount=1,InstanceType='t2.micro',NetworkInterfaces=NetworkInterfaces)
+
+==========================================================================================
+
+To list buckets
+
+s3 = boto3.client('s3')
+for buckets in s3.list_buckets()['Buckets']:
+     print('>>',buckets['Name'])
+
+
+=========================================================================================
+Upload a file to s3
+
+import boto3
+s3 = boto3.client('s3')
+s3.upload_file('wvdial.conf','clado123','clado.txt')
+
+
+
+==========================================================================================
+Delete an object
+
+import boto3
+s3 = boto3.client('s3')
+
+s3.delete_object(Bucket='clado123',Key='clado.txt')
+
+
+
+
+
+
