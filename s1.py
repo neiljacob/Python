@@ -1,4 +1,4 @@
-#for, if, split, endswith 
+#Use for, if, split, endswith 
 
 x = 'wenesday neil sachin ponting'
 y = (x.split())

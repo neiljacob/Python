@@ -1,4 +1,4 @@
-#indexable, stepping, type, new line
+#Use indexable, stepping, type, new line
 
 lang = 'malayalam'
 new = lang[0:4]

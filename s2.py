@@ -1,4 +1,5 @@
-#lower, replace, upper
+#Use lower, replace, upper
+
 lang = 'malayalam'
 new = lang.lower().replace('a','x')
 print('new= ',new)
